@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Grandpy</title>
        <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="static/css/bootstrap/bootstrap.min.css">
 
@@ -11,6 +11,9 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="static/css/custom.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/cbede470ba.js"></script>
 
     <!-- Custom Fonts -->
     <script src="https://use.fontawesome.com/470b91f216.js"></script>
@@ -24,7 +27,6 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="static/js/jquery/jquery.min.js" charset="utf-8"></script>
-
 </head>
 
 <body id="page-top" class="index">
@@ -36,8 +38,8 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
                  <p> <a class="navbar-brand" href="/">GranPy</a></p>
-                 <img class="navbar-brand" src="{{ picture }}">
-                  <h2 class="navbar-brand" style="margin-top: -23px;">Sa fais plaisir que tu sois la mon pti.</h2>
+                 <img id="pic" class="navbar-brand" src="{{ picture }}">
+                  <h2 id="tit" class="navbar-brand" >Sa fais plaisir que tu sois la mon pti.</h2>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -58,40 +60,58 @@
       <div class="container" id="maincontent" tabindex="-1">
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3">
-              <div class="card">
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h2>Tom</h2>
-                  </div>
-                  <div class="col-sm-12">
-                    <p>Toi, tu sais comment utiliser la console ! Jamais à court d'idées pour réaliser ton objectif, tu es déterminé-e et persévérant-e. Tes amis disent d'ailleurs volontiers que tu as du caractère et que tu ne te laisses pas marcher sur les pieds. Un peu hacker sur les bords, tu aimes trouver des solutions à tout problème. N'aurais-tu pas un petit problème d'autorité ? ;-)</p>
-                  </div>
+                <div class="card">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!-- display the conversations -->
+                            <ul id="displays">
+
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
         </div>
-        <div class="row">
+      </div>
+                <div class="card">
+                  <div class="row">
+                  <div class="col-sm-12">
+                    <h2>Allez! Dis tous à GrandPy.</h2>
+
+                      <!-- Question form -->
+                      <input id="inputForm"  type="text" name="texte" style="color : black;">
+                      <i id="spin" class="fas fa-spinner"></i>
+                      <button id="envoi" class="btn btn-primary my-btn has-spinner">Envoyer</button>
+
+                  </div>
+                 </div>
+                </div>
+        <div class="card">
+                    <div class="row">
+                        <!-- Display the bing map -->
+                        <div id="displayMap" class="col-sm-12">
+
+
+                        </div>
+                    </div>
+
+                </div>
+          <div class="row">
           <div class="intro-text">
             <h2 class="name">Je serais toujours la pour toi mon pti.</h2>
             <hr class="star-light">
           </div>
+          </div>
 
-        </div>
-      </div>
     </header>
-
-    <div id="fb-root"></div>
-    <script>
-
-    </script>
 
     <footer class="text-center">
         <div class="footer-below">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <a href="https://www.linkedin.com/in/yonel-assouvie-321483176/" class="btn-social btn-outline" target="_blank"><span class="sr-only">Linkedin</span><i class="fa fa-fw fa-linkedin"></i></a>
-                        <a href="https://github.com/Hub972/tp7_grandPy" class="btn-social btn-outline" target="_blank"><span class="sr-only">GitHub</span><i class="fa fa-fw fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/yonel-assouvie-321483176/" class="btn-social btn-outline" target="_blank"><span class="sr-only">Linkedin</span><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/Hub972/tp7_grandPy" class="btn-social btn-outline" target="_blank"><span class="sr-only">GitHub</span><i class="fab fa-github"></i></a>
                         <hr class="star-light">
                         <span class="italic">Copyright &copy; Yonel Assouvie <a href="https://www.openclassrooms.com" target="_blank">OpenClassrooms</a></span>
 
@@ -116,7 +136,11 @@
 
     <!-- Theme JavaScript -->
     <script src="static/js/freelancer-theme.min.js" charset="utf-8"></script>
-
+    <script
+                  src="https://code.jquery.com/jquery-3.4.1.min.js"
+                  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                  crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='ajax_/ajax_inter.js') }}"></script>
 </body>
 
 </html>
