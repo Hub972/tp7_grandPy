@@ -105,8 +105,7 @@ $(document).ready(()=> {
                 $('#spin').hide();
                 alert( "Euuuhhhh, non vraiment je ne vois pasde quoi tu parles; tu peux reformulez ?" )
                 });
-            function displayReturnData(reqFilter, bing_map) {//If the request done read the script
-                console.log(bing_map)
+            function displayReturnData(reqFilter) {//If the request done read the script
                 console.log(reqFilter[0].formatted_address.split(','));
                 console.log(reqFilter[0].geometry.location['lat']);
                 console.log(reqFilter[0].geometry.location['lng']);
