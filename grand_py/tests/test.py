@@ -16,7 +16,7 @@ def test_json_return(monkeypatch):
         def mockreturn():
             return BytesIO(jsonify(results))
         script = GoogleMapApi()
-        req = script.searchAboutQuery(query='openclassrooms', g_key=app.config["G_KEY"] )
+        req = script.searchAboutQuery(query='openclassrooms', g_key=app.config["G_KEY"])
         monkeypatch.setattr(urllib.request, 'urlopen', mockreturn)
         assert req[0]['formatted_address'] == results
 
@@ -25,7 +25,6 @@ def test_text_return():
     """Test if wikipedia give a good page about a query"""
     makeWikiSearch = Wiki()
     text = """La cité Paradis est une voie publique située dans le 10e arrondissement de Paris."""
-    print(text[0:50])
     wiki = makeWikiSearch.searchContent(query="cité paradis")
     assert wiki[0:50] == text[0:50]
 

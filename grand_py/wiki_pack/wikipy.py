@@ -10,6 +10,5 @@ class Wiki:
         wikipedia.set_lang("fr")
         resultRaw = wikipedia.page(query)
         resultList = resultRaw.content[0:295]
-        result = resultList[0]
-        print(result)
-        return resultList
+        resultLink = resultRaw.url
+        return resultList, resultLink

@@ -103,7 +103,7 @@ $(document).ready(()=> {
                 'json'
             ).fail(function() {// if the request fail
                 $('#spin').hide();
-                alert( "Euuuhhhh, non vraiment je ne vois pasde quoi tu parles; tu peux reformulez ?" )
+                alert( "Euuuhhhh, non vraiment je ne vois pasde quoi tu parles; tu peux reformulez ?" );
                 });
             function displayReturnData(reqFilter) {//If the request done read the script
                 console.log(reqFilter[0].formatted_address.split(','));
@@ -113,12 +113,12 @@ $(document).ready(()=> {
                 var lng = reqFilter[0].geometry.location['lng'];
                 var name = reqFilter[0].name;
                 addressRaw = reqFilter[0].formatted_address.split(',');
-                address = addressRaw[0].replace(/\d/g, ' ')
+                address = addressRaw[0].replace(/\d/g, ' ');
                 console.log(address);
                 idSentence = Math.floor((Math.random() * 3));
-                var rspGrndPy = beginSentence[idSentence]+ addressRaw +endSentence[idSentence];
+                var rspGrndPy = beginSentence[idSentence]+ addressRaw +endSentence[idSentence]+'<span class="'+name+'"></span>';
                 setTimeout(function () {
-                    $('#displays').append('<li>'+ rspGrndPy +'</li>')
+
                     //Display the map.
                     reqRaw = 'https://dev.virtualearth.net/REST/v1/Imagery/Map/Road/'+ lat +','+ lng +'/15?mapSize=500,500&pp='+ lat +','+ lng +'&key=AkuEXWHCBJkoeCzvttohvxa8Q4aVaGlvbrLfbZfb9z6Hxs-GqmAVeO0Ua9kaTGUx';
                     $('#displayMap').append('<span>'+ name +'</span><img src="'+ reqRaw +'" >');
@@ -136,11 +136,13 @@ $(document).ready(()=> {
                     $('#spin').hide();
                     alert( "J'avais une histoire sur ce quartier mais j'ai un trou de mémoire reformule moi sa plus tard." )
                 });
-                function displaySentence (wqueryi) {
+                function displaySentence (listReturn) {
                     $('#spin').hide();// Stop the spinner
                     setTimeout(function () {
+                        $('#displays').append('<li>'+ rspGrndPy +'</li>');
+                        $('#displays').append('<li><a href="'+listReturn[1]+'"class="btn-social btn-outline" target="_blank"><span class="sr-only">Wikipedia</span>><i class="fab fa-wikipedia-w"></i></a><br>              _________               </li>');
                         alert("Mais t'ai-je déjà raconté l'histoire de ce quartier qui m'a vu en culottes courtes ? "
-                        + wqueryi +"...ZZZZZZZZ Hep! GrandPy s'endort c'est l'âge pardonne moi, dis moi tous mon pti.");
+                        + listReturn[0] +"...ZZZZZZZZ Hep! GrandPy s'endort c'est l'âge pardonne moi, dis moi tous mon pti.");
                     }, 4000);
                 };
             };
