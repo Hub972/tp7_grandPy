@@ -26,7 +26,9 @@ def gRequest():
     g_key = app.config["G_KEY"]
     query = request.args.get('query')
     print(query)
-    reqFilter = gReq.searchAboutQuery(query, g_key)
+    req = gReq.searchAboutQuery(query, g_key)
+    req = req.json()
+    reqFilter = req['candidates']
     print(reqFilter)
     return jsonify(reqFilter)
 
@@ -37,7 +39,9 @@ def wRequest():
     listReturn = []
     wReq = Wiki()
     query = request.args.get('wqueryo')
-    wqueryi, pagLink = wReq.searchContent(query)
+    resultRaw = wReq.searchContent(query)
+    wqueryi = resultRaw.content[0:295]
+    pagLink = resultRaw.url
     listReturn.append(wqueryi)
     listReturn.append(pagLink)
     print(listReturn)

@@ -1,30 +1,60 @@
 #! /usr/bin/env python3
 # coding: utf-8
-from flask import jsonify
-import urllib.request
-from io import BytesIO
+import requests
+import wikipedia
+
 
 from grand_py.wiki_pack.wikipy import Wiki
-from grand_py.views import app
 from grand_py.requests_.api_google import GoogleMapApi
 
-app.config.from_object('config')
-def test_json_return(monkeypatch):
+
+def test_google_return(monkeypatch):
     """Test google requests results about a query."""
     results = '7 Cité Paradis, 75010 Paris, France'
-    with app.app_context():
-        def mockreturn():
-            return BytesIO(jsonify(results))
-        script = GoogleMapApi()
-        req = script.searchAboutQuery(query='openclassrooms', g_key=app.config["G_KEY"])
-        monkeypatch.setattr(urllib.request, 'urlopen', mockreturn)
-        assert req[0]['formatted_address'] == results
+
+    def mockreturn(*args, **kwargs):
+        return results
+
+    monkeypatch.setattr(requests, 'get', mockreturn)
+    script = GoogleMapApi()
+    req = script.searchAboutQuery(query='openclassrooms', g_key=1)
+    assert req == results
+
+def test_google_Bad_return(monkeypatch):
+    """Test google requests results about a query."""
+    result = '7 Cité Paradis, 75010 Paris, France'
+    bad_result = 'error'
+
+    def mockreturn(*args, **kwargs):
+        return bad_result
+
+    monkeypatch.setattr(requests, 'get', mockreturn)
+    script = GoogleMapApi()
+    req = script.searchAboutQuery(query='open classe room', g_key=1)
+    assert req != result
 
 
-def test_text_return():
+def test_wiki_return(monkeypatch):
     """Test if wikipedia give a good page about a query"""
+
+    url = 'https://fr.wikipedia.org/wiki/Tour_Eiffel'
+
+    def mockreturn(*args, **kwargs):
+        return url
+    monkeypatch.setattr(wikipedia, 'page', mockreturn)
     makeWikiSearch = Wiki()
-    text = """La cité Paradis est une voie publique située dans le 10e arrondissement de Paris."""
-    wiki = makeWikiSearch.searchContent(query="cité paradis")
-    assert wiki[0:50] == text[0:50]
+    wiki = makeWikiSearch.searchContent(query="tour eiffel")
+    assert wiki == url
+
+
+def test_wiki_bad_return(monkeypatch):
+    """Test if wikipedia give a good page about a query"""
+    bad_url = 'error'
+    def mockreturn(*args, **kwargs):
+        return bad_url
+    monkeypatch.setattr(wikipedia, 'page', mockreturn)
+    makeWikiSearch = Wiki()
+    wiki = makeWikiSearch.searchContent(query="touf eiffel")
+    assert wiki == bad_url
+
 
