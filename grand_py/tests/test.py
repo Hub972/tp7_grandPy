@@ -20,6 +20,7 @@ def test_google_return(monkeypatch):
     req = script.searchAboutQuery(query='openclassrooms', g_key=1)
     assert req == results
 
+
 def test_google_Bad_return(monkeypatch):
     """Test google requests results about a query."""
     result = '7 Cité Paradis, 75010 Paris, France'
@@ -42,19 +43,21 @@ def test_wiki_return(monkeypatch):
     def mockreturn(*args, **kwargs):
         return url
     monkeypatch.setattr(wikipedia, 'page', mockreturn)
-    makeWikiSearch = Wiki()
-    wiki = makeWikiSearch.searchContent(query="tour eiffel")
+    make_wiki_search = Wiki()
+    wiki = make_wiki_search.searchContent(query="tour eiffel")
     assert wiki == url
 
 
 def test_wiki_bad_return(monkeypatch):
     """Test if wikipedia give a good page about a query"""
+    url = 'https://fr.wikipedia.org/wiki/Tour_Eiffel'
     bad_url = 'error'
+
     def mockreturn(*args, **kwargs):
         return bad_url
     monkeypatch.setattr(wikipedia, 'page', mockreturn)
-    makeWikiSearch = Wiki()
-    wiki = makeWikiSearch.searchContent(query="touf eiffel")
-    assert wiki == bad_url
+    make_wiki_search = Wiki()
+    wiki = make_wiki_search.searchContent(query="touf eiffel")
+    assert wiki != url
 
 
