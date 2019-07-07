@@ -21,17 +21,17 @@ def test_google_return(monkeypatch):
     assert req == results
 
 
-def test_google_Bad_return(monkeypatch):
+def test_google_bad_return(monkeypatch):
     """Test google requests results about a query."""
     result = '7 Cité Paradis, 75010 Paris, France'
-    bad_result = 'error'
+    badResult = 'error'
 
     def mockreturn(*args, **kwargs):
-        return bad_result
+        return badResult
 
     monkeypatch.setattr(requests, 'get', mockreturn)
     script = GoogleMapApi()
-    req = script.searchAboutQuery(query='open classe room', g_key=1)
+    req = script.search_about_query(query='open classe room', g_key=1)
     assert req != result
 
 
@@ -43,8 +43,8 @@ def test_wiki_return(monkeypatch):
     def mockreturn(*args, **kwargs):
         return url
     monkeypatch.setattr(wikipedia, 'page', mockreturn)
-    make_wiki_search = Wiki()
-    wiki = make_wiki_search.searchContent(query="tour eiffel")
+    makeWikiSearch = Wiki()
+    wiki = makeWikiSearch.search_content(query="tour eiffel")
     assert wiki == url
 
 
@@ -57,7 +57,7 @@ def test_wiki_bad_return(monkeypatch):
         return bad_url
     monkeypatch.setattr(wikipedia, 'page', mockreturn)
     make_wiki_search = Wiki()
-    wiki = make_wiki_search.searchContent(query="touf eiffel")
+    wiki = make_wiki_search.search_content(query="touf eiffel")
     assert wiki != url
 
 
